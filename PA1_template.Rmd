@@ -18,11 +18,11 @@ directory <- "John Hopkins Data science/Reproducible Research/Week 2"
 url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 path <- paste(getwd(),directory,sep="/")
 print(path)
-filename <- "Activity monitoring data.zip"
+filename <- "activity.zip"
 fullname <- paste(path,filename,sep="/")
 fullname
-download.file(url,destfile = fullname)
-dateDownloaded <- date()
+#download.file(url,destfile = fullname)
+#dateDownloaded <- date()
 
 ## Unzip the files and save the list of files into data
 actData <- unzip(fullname,list = TRUE)$Name
@@ -61,7 +61,7 @@ str(actSum)
 ## Make a histogram of the total number of steps taken each day
 library(ggplot2)
 
-setwd(paste0(getwd(),directory))
+#setwd(paste0(getwd(),directory))
 meanPlot <- ggplot(actSum, aes(x=date, y=totalSteps))
 meanPlot <- meanPlot + geom_bar(fill="#00E5EE", stat="identity")
 meanPlot <- meanPlot + labs(x = "Date") 
@@ -148,7 +148,6 @@ for(i in 1:length(actData2$steps)){
     if(is.na(actData2[i,1])){
             print("Yes it matched")
             actData2[i,1] <- actInterval2[which(actInterval2$interval == actData2[i,3]),2]
-        }
     }
     else{
         actData2[i,1]<- actData2[i,1]
@@ -193,7 +192,7 @@ Do these values differ from the estimates from the first part of the assignment?
 
 For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
 
-Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+Create a new factor variable in the dataset with two levels â âweekdayâ and âweekendâ indicating whether a given date is a weekday or weekend day.
 
 ```{r}
 
@@ -212,7 +211,7 @@ intPlot <- ggplot(intplot2,
             aes(x=interval, 
                 y=avgSteps))
 intPlot <- intPlot + theme_bw()
-intPlot <- intPlot + intPloteom_line(colour="#00BFC4")
+intPlot <- intPlot + geom_line(colour="#00BFC4")
 intPlot <- intPlot + facet_wrap( ~ dayType, ncol=1)
 intPlot <- intPlot + labs(x = "Interval") 
 intPlot <- intPlot + labs(y = "Number of steps") 
